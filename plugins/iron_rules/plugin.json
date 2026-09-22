@@ -1,0 +1,11 @@
+{
+  "id": "iron_rules",
+  "name": "世界观铁律断言",
+  "version": "0.1.0",
+  "category": "ledger",
+  "description": "从设定/卷纪律提取禁止项，扫描细纲与正文是否提前写未揭晓内容",
+  "premium": false,
+  "entry": "plugin:IronRulesPlugin",
+  "builtin": true,
+  "agent_tools": ["iron_rules.run"]
+}

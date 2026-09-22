@@ -1,0 +1,11 @@
+{
+  "id": "reader_sim",
+  "name": "模拟读者",
+  "version": "0.1.0",
+  "category": "audit",
+  "description": "像付费读者一样读章：标 AI 味、剧情不合理、对话不通顺，并给出可执行建议。本地全量 + 可选 LLM 读者点评。",
+  "premium": false,
+  "entry": "plugin:ReaderSimPlugin",
+  "builtin": true,
+  "agent_tools": ["reader_sim.run"]
+}

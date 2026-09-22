@@ -1,0 +1,11 @@
+{
+  "id": "cast_budget",
+  "name": "角色戏份预算",
+  "version": "0.1.0",
+  "category": "cast",
+  "description": "统计角色出场/提及，预警戏份失衡、核心失踪、临时过曝",
+  "premium": false,
+  "entry": "plugin:CastBudgetPlugin",
+  "builtin": true,
+  "agent_tools": ["cast_budget.run", "cast_budget.status"]
+}

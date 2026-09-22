@@ -1,0 +1,11 @@
+{
+  "id": "continuity_audit",
+  "name": "跨层连贯巡检",
+  "version": "0.1.0",
+  "category": "continuity",
+  "description": "结构↔大纲↔细纲↔正文摘要对账，抓缺卷、空细纲、锚点覆盖缺口",
+  "premium": false,
+  "entry": "plugin:ContinuityAuditPlugin",
+  "builtin": true,
+  "agent_tools": ["continuity_audit.run"]
+}

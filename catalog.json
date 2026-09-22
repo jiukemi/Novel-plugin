@@ -1,0 +1,112 @@
+{
+  "updated_at": "2026-09-22",
+  "schema": "plaza.v1",
+  "packages": [
+    {
+      "id": "cast_budget",
+      "name": "角色戏份预算",
+      "version": "0.1.0",
+      "kind": "scan",
+      "category": "cast",
+      "description": "戏份占比、断档、临时过曝预警。支持 Bridge / App 调用。",
+      "premium": false,
+      "filename": "cast_budget-0.1.0.zip",
+      "release_tag": "plugins-v0.1.0",
+      "agent_tools": [
+        "cast_budget.run"
+      ],
+      "download_urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/raw/main/packages/cast_budget-0.1.0.zip",
+        "github": "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/packages/cast_budget-0.1.0.zip"
+      }
+    },
+    {
+      "id": "continuity_audit",
+      "name": "跨层连贯巡检",
+      "version": "0.1.0",
+      "kind": "scan",
+      "category": "continuity",
+      "description": "结构↔大纲↔细纲↔正文覆盖对账，抓缺卷、空细纲、有正文无细纲等。",
+      "premium": false,
+      "filename": "continuity_audit-0.1.0.zip",
+      "release_tag": "plugins-v0.1.0",
+      "agent_tools": [
+        "continuity_audit.run"
+      ],
+      "download_urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/raw/main/packages/continuity_audit-0.1.0.zip",
+        "github": "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/packages/continuity_audit-0.1.0.zip"
+      }
+    },
+    {
+      "id": "iron_rules",
+      "name": "世界观铁律断言",
+      "version": "0.1.0",
+      "kind": "scan",
+      "category": "ledger",
+      "description": "从设定/卷纪律提取禁止项，扫描前期细纲与正文是否提前写后期内容。",
+      "premium": false,
+      "filename": "iron_rules-0.1.0.zip",
+      "release_tag": "plugins-v0.1.0",
+      "agent_tools": [
+        "iron_rules.run"
+      ],
+      "download_urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/raw/main/packages/iron_rules-0.1.0.zip",
+        "github": "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/packages/iron_rules-0.1.0.zip"
+      }
+    },
+    {
+      "id": "reader_sim",
+      "name": "模拟读者",
+      "version": "0.1.0",
+      "kind": "scan",
+      "category": "audit",
+      "description": "像付费读者读章：提示 AI 味、剧情不合理、对话不通顺，并给出可执行建议。",
+      "premium": false,
+      "filename": "reader_sim-0.1.0.zip",
+      "release_tag": "plugins-v0.1.0",
+      "agent_tools": [
+        "reader_sim.run"
+      ],
+      "download_urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/raw/main/packages/reader_sim-0.1.0.zip",
+        "github": "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/packages/reader_sim-0.1.0.zip"
+      }
+    },
+    {
+      "id": "decision_laya",
+      "name": "本地决策 · Laya",
+      "version": "0.1.0",
+      "kind": "runtime",
+      "category": "infra",
+      "description": "开源决策层（choice / score / bool）。插件代码按需安装；权重单独下载，不打进 App。适合落实检查分流、提案采纳/误报、审稿是否扩写。",
+      "premium": false,
+      "plaza": true,
+      "filename": "decision_laya-0.1.0.zip",
+      "release_tag": "plugins-v0.1.0",
+      "agent_tools": [
+        "decision_laya.decide"
+      ],
+      "assets": [
+        {
+          "id": "weights_zh",
+          "name": "Laya 多语权重",
+          "filename": "laya-ml-weights.safetensors",
+          "size_hint_mb": 900,
+          "required": true,
+          "sha256": "",
+          "urls": {
+            "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/assets-v1/laya-ml-weights.safetensors",
+            "github": "https://github.com/jiukemi/Novel-plugin/releases/download/assets-v1/laya-ml-weights.safetensors",
+            "cdn": ""
+          }
+        }
+      ],
+      "download_urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/raw/main/packages/decision_laya-0.1.0.zip",
+        "github": "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/packages/decision_laya-0.1.0.zip"
+      }
+    }
+  ]
+}

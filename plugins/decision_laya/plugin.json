@@ -1,0 +1,28 @@
+{
+  "id": "decision_laya",
+  "name": "本地决策 · Laya",
+  "version": "0.1.0",
+  "kind": "runtime",
+  "category": "infra",
+  "description": "开源决策层：给出 choice / score / bool 与概率。代码与权重拆分下载；未下权重时明确提示，不假装推理。",
+  "premium": false,
+  "plaza": true,
+  "builtin": false,
+  "entry": "plugin:DecisionLayaPlugin",
+  "agent_tools": ["decision_laya.decide"],
+  "assets": [
+    {
+      "id": "weights_zh",
+      "name": "Laya 多语权重",
+      "filename": "laya-ml-weights.safetensors",
+      "size_hint_mb": 900,
+      "required": true,
+      "sha256": "",
+      "urls": {
+        "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/assets-v1/laya-ml-weights.safetensors",
+        "github": "https://github.com/jiukemi/Novel-plugin/releases/download/assets-v1/laya-ml-weights.safetensors",
+        "cdn": ""
+      }
+    }
+  ]
+}
