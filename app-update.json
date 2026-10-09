@@ -1,0 +1,18 @@
+{
+  "schema": "jiuyi.app_update.v1",
+  "latest": "1.0.1",
+  "released_at": "2026-10-09T09:11:00Z",
+  "force_below": "0.0.0",
+  "force_versions": [],
+  "notes": "1.0.1 内测：本地 AI 味检测 / 浅修与深度降 AI 味、可选朱雀对照、节奏课与热点灵感。\n请只下载 JiuyiAI-Engine-*.zip；Release 页的 Source code 是插件仓公开内容，不是引擎源码。",
+  "downloads": {
+    "macos": {
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.1/JiuyiAI-Engine-macos-v1.0.1.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.1/JiuyiAI-Engine-macos-v1.0.1.zip"
+    },
+    "windows": {
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.1/JiuyiAI-Engine-windows-v1.0.1.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.1/JiuyiAI-Engine-windows-v1.0.1.zip"
+    }
+  }
+}

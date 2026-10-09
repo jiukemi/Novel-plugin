@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>九易AI小说引擎 · 下载</title>
+    <style>
+      :root {
+        --bg: #f3faf8;
+        --word: #2a524a;
+        --accent: #4f9e90;
+        --muted: #5d7f77;
+        --card: #ffffff;
+        --line: #cfe6e0;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+        color: var(--word);
+        background:
+          radial-gradient(900px 420px at 12% -10%, rgba(79, 158, 144, 0.16), transparent 60%),
+          var(--bg);
+        padding: 32px 20px 48px;
+      }
+      .wrap { max-width: 720px; margin: 0 auto; }
+      h1 { margin: 0 0 8px; font-size: 1.6rem; letter-spacing: 0.02em; }
+      .lead { margin: 0 0 22px; color: var(--muted); line-height: 1.55; }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 18px 16px;
+        margin-bottom: 14px;
+      }
+      .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 8px;
+        border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+        background: color-mix(in srgb, var(--accent) 14%, #fff);
+        color: var(--word);
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn.primary { background: var(--accent); color: #fff; border-color: transparent; }
+      .btn.ghost { background: transparent; font-weight: 500; }
+      .meta { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
+      .status { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); }
+      .err { color: #c04545; }
+      code { font-size: 0.85em; }
+      .notes { white-space: pre-wrap; font-size: 0.88rem; line-height: 1.5; margin: 10px 0 0; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>九易AI小说引擎</h1>
+      <p class="lead">
+        本机写作工具，完全免费。下方自动探测最新安装包，并按你的网络选择 GitHub 或 Gitee 下载。
+        请只下载 <code>JiuyiAI-Engine-*.zip</code>；Release 页的 Source code 不是引擎源码。
+      </p>
+      <p class="status" id="status">正在获取最新版本…</p>
+
+      <section class="card" id="macCard">
+        <strong>macOS</strong>
+        <p class="meta" id="macMeta">检测中…</p>
+        <div class="row" id="macRow"></div>
+      </section>
+
+      <section class="card" id="winCard">
+        <strong>Windows</strong>
+        <p class="meta" id="winMeta">检测中…</p>
+        <div class="row" id="winRow"></div>
+      </section>
+
+      <section class="card">
+        <strong>说明</strong>
+        <p class="meta">
+          · 国内网络默认优先 Gitee，并与 GitHub 短测速后选用更快镜像<br />
+          · 你也可手动切换镜像；杀软偶发误报 PyInstaller 属常见现象<br />
+          · 成文需自备 API Key；朱雀对照可选
+        </p>
+        <p class="notes" id="notes"></p>
+      </section>
+    </div>
+    <script>
+      const MANIFESTS = [
+        "https://gitee.com/webhwh/novel-plugin/raw/main/app-update.json",
+        "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/app-update.json",
+      ];
+      const GH_API = "https://api.github.com/repos/jiukemi/Novel-plugin/releases?per_page=15";
+      const GEE_API = "https://gitee.com/api/v5/repos/webhwh/novel-plugin/releases?per_page=15";
+
+      function preferRegionGitee() {
+        try {
+          const lang = (navigator.language || "").toLowerCase();
+          if (lang.startsWith("zh")) return true;
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+          if (/Shanghai|Chongqing|Urumqi|Hong_Kong|Taipei|Macau/i.test(tz)) return true;
+        } catch (_) {}
+        return false;
+      }
+
+      async function fetchJson(url, ms) {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), ms);
+        try {
+          const r = await fetch(url, { signal: ctrl.signal, cache: "no-store" });
+          if (!r.ok) throw new Error(String(r.status));
+          return await r.json();
+        } finally {
+          clearTimeout(t);
+        }
+      }
+
+      async function probe(url, ms) {
+        if (!url) return 99999;
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), ms);
+        const start = performance.now();
+        try {
+          await fetch(url, { method: "HEAD", mode: "no-cors", signal: ctrl.signal, cache: "no-store" });
+          return performance.now() - start;
+        } catch (_) {
+          return 99999;
+        } finally {
+          clearTimeout(t);
+        }
+      }
+
+      function parseVer(s) {
+        const m = String(s || "").match(/v?(\d+)\.(\d+)\.(\d+)/i);
+        return m ? [+m[1], +m[2], +m[3]] : null;
+      }
+
+      function verGt(a, b) {
+        const pa = parseVer(a), pb = parseVer(b);
+        if (!pa || !pb) return false;
+        for (let i = 0; i < 3; i++) if (pa[i] !== pb[i]) return pa[i] > pb[i];
+        return false;
+      }
+
+      async function loadManifest() {
+        for (const u of MANIFESTS) {
+          try {
+            const d = await fetchJson(u, 8000);
+            if (d && d.latest && d.downloads) return { data: d, src: u };
+          } catch (_) {}
+        }
+        return null;
+      }
+
+      function assetUrl(assets, plat) {
+        const keys = plat === "macos" ? ["macos", "darwin", "mac"] : ["windows", "win"];
+        for (const a of assets || []) {
+          const name = String(a.name || a.file_name || "").toLowerCase();
+          const url = a.browser_download_url || a.browser_url || "";
+          if (!url) continue;
+          if (keys.some((k) => name.includes(k)) && name.endsWith(".zip") && !name.includes("source")) {
+            return url;
+          }
+        }
+        return "";
+      }
+
+      async function loadFromReleases() {
+        const out = { latest: "", downloads: { macos: {}, windows: {} }, notes: "" };
+        const tasks = [
+          fetchJson(GH_API, 9000).then((d) => ({ m: "github", d })).catch(() => null),
+          fetchJson(GEE_API, 9000).then((d) => ({ m: "gitee", d })).catch(() => null),
+        ];
+        const results = await Promise.all(tasks);
+        for (const hit of results) {
+          if (!hit || !Array.isArray(hit.d)) continue;
+          for (const rel of hit.d) {
+            const tag = String(rel.tag_name || "");
+            const ver = (parseVer(tag) || []).join(".");
+            if (!ver) continue;
+            if (!out.latest || verGt(ver, out.latest)) {
+              out.latest = ver;
+              out.notes = String(rel.body || rel.description || "").slice(0, 800);
+            }
+            const mac = assetUrl(rel.assets, "macos");
+            const win = assetUrl(rel.assets, "windows");
+            if (mac) out.downloads.macos[hit.m] = mac;
+            if (win) out.downloads.windows[hit.m] = win;
+            // conventional fallback by tag
+            if (tag.startsWith("app-macos-v") && !out.downloads.macos[hit.m]) {
+              const base = hit.m === "gitee"
+                ? "https://gitee.com/webhwh/novel-plugin/releases/download"
+                : "https://github.com/jiukemi/Novel-plugin/releases/download";
+              out.downloads.macos[hit.m] = `${base}/${tag}/JiuyiAI-Engine-macos-v${ver}.zip`;
+            }
+            if (tag.startsWith("app-windows-v") && !out.downloads.windows[hit.m]) {
+              const base = hit.m === "gitee"
+                ? "https://gitee.com/webhwh/novel-plugin/releases/download"
+                : "https://github.com/jiukemi/Novel-plugin/releases/download";
+              out.downloads.windows[hit.m] = `${base}/${tag}/JiuyiAI-Engine-windows-v${ver}.zip`;
+            }
+          }
+        }
+        return out.latest ? out : null;
+      }
+
+      async function chooseMirror(github, gitee) {
+        const regionGee = preferRegionGitee();
+        if (github && !gitee) return { url: github, mirror: "github", alt: "" };
+        if (gitee && !github) return { url: gitee, mirror: "gitee", alt: "" };
+        if (!github && !gitee) return { url: "", mirror: "", alt: "" };
+        const [tg, th] = await Promise.all([probe(gitee, 2500), probe(github, 2500)]);
+        // 国内偏向 Gitee：除非 GitHub 明显更快
+        if (regionGee) {
+          if (tg < 9000 && (th >= 9000 || tg <= th + 400)) {
+            return { url: gitee, mirror: "gitee", alt: github };
+          }
+          return { url: github, mirror: "github", alt: gitee };
+        }
+        if (th <= tg) return { url: github, mirror: "github", alt: gitee };
+        return { url: gitee, mirror: "gitee", alt: github };
+      }
+
+      function renderPlat(prefix, label, choice, github, gitee, version) {
+        const meta = document.getElementById(prefix + "Meta");
+        const row = document.getElementById(prefix + "Row");
+        row.innerHTML = "";
+        if (!choice.url) {
+          meta.textContent = "暂未找到该平台安装包";
+          meta.classList.add("err");
+          return;
+        }
+        meta.textContent = `最新 ${version} · 自动选择 ${choice.mirror === "gitee" ? "Gitee（国内）" : "GitHub"}`;
+        meta.classList.remove("err");
+        const a = document.createElement("a");
+        a.className = "btn primary";
+        a.href = choice.url;
+        a.textContent = `下载 ${label}`;
+        a.rel = "noreferrer";
+        row.appendChild(a);
+        if (github) {
+          const g = document.createElement("a");
+          g.className = "btn ghost";
+          g.href = github;
+          g.textContent = "GitHub";
+          g.rel = "noreferrer";
+          row.appendChild(g);
+        }
+        if (gitee) {
+          const e = document.createElement("a");
+          e.className = "btn ghost";
+          e.href = gitee;
+          e.textContent = "Gitee";
+          e.rel = "noreferrer";
+          row.appendChild(e);
+        }
+      }
+
+      (async function main() {
+        const status = document.getElementById("status");
+        try {
+          let data = null;
+          const man = await loadManifest();
+          if (man) data = man.data;
+          if (!data) data = await loadFromReleases();
+          if (!data) throw new Error("无法从 GitHub / Gitee 获取版本信息");
+
+          const version = data.latest;
+          status.textContent = `最新版本 ${version}` + (data.released_at ? ` · 发布于 ${data.released_at}` : "");
+          document.getElementById("notes").textContent = data.notes || "";
+
+          const mac = data.downloads?.macos || {};
+          const win = data.downloads?.windows || {};
+          const [macChoice, winChoice] = await Promise.all([
+            chooseMirror(mac.github || "", mac.gitee || ""),
+            chooseMirror(win.github || "", win.gitee || ""),
+          ]);
+          renderPlat("mac", "macOS", macChoice, mac.github || "", mac.gitee || "", version);
+          renderPlat("win", "Windows", winChoice, win.github || "", win.gitee || "", version);
+
+          // 自动高亮本机平台
+          const ua = navigator.userAgent || "";
+          const isMac = /Mac|iPhone|iPad/.test(ua);
+          const isWin = /Windows/.test(ua);
+          if (isMac) document.getElementById("macCard").style.outline = "2px solid rgba(79,158,144,.45)";
+          if (isWin) document.getElementById("winCard").style.outline = "2px solid rgba(79,158,144,.45)";
+        } catch (e) {
+          status.innerHTML = `<span class="err">获取失败：${e.message || e}</span> · 可直接打开
+            <a href="https://gitee.com/webhwh/novel-plugin/releases">Gitee Releases</a> /
+            <a href="https://github.com/jiukemi/Novel-plugin/releases">GitHub Releases</a>`;
+        }
+      })();
+    </script>
+  </body>
+</html>
