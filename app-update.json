@@ -4,7 +4,7 @@
   "released_at": "2026-10-09T13:30:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.0.2：应用内自动检查更新（可跳过本版本；强制更新不可跳过）、Windows 缺 WebView2 时一键安装引导。\n请只下载 JiuyiAI-Engine-*.zip；Release 页的 Source code 是插件仓公开内容，不是引擎源码。",
+  "notes": "1.0.2：应用内自动检查更新（可跳过本版本；强制更新不可跳过）、Windows 缺 WebView2 时一键安装引导。本地版本免费下载安装。",
   "downloads": {
     "macos": {
       "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.2/JiuyiAI-Engine-macos-v1.0.2.zip",
