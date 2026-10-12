@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.0.7",
-  "released_at": "2026-10-12T05:20:00Z",
+  "latest": "1.0.8",
+  "released_at": "2026-10-12T08:30:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.0.7：准备窗居中美化；加载后端时保持窗口刷新（不再假死）；修复诊断 bat 中文路径乱码（可用 diag_launch.bat）。",
+  "notes": "1.0.8：用户数据改写到 %LOCALAPPDATA%\\JiuyiAIEngine（避免下载目录卡住）；启动日志始终留在 exe 旁；加固 Win32 准备窗注册。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.7/JiuyiAI-Engine-macos-v1.0.7.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.7/JiuyiAI-Engine-macos-v1.0.7.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.8/JiuyiAI-Engine-macos-v1.0.8.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.8/JiuyiAI-Engine-macos-v1.0.8.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.7/JiuyiAI-Engine-windows-v1.0.7.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.7/JiuyiAI-Engine-windows-v1.0.7.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.8/JiuyiAI-Engine-windows-v1.0.8.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.8/JiuyiAI-Engine-windows-v1.0.8.zip"
     }
   }
 }
