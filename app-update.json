@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.0.3",
-  "released_at": "2026-10-10T05:20:00Z",
+  "latest": "1.0.4",
+  "released_at": "2026-10-12T03:40:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.0.3：修复 Windows 启动时 GBK 控制台编码导致 desktop_app 崩溃；1.0.2 起应用内检查更新、WebView2 引导等能力保留。",
+  "notes": "1.0.4：修复 Windows 启动时 AES 密钥库调用 os.uname 导致崩溃；1.0.3 起 GBK 控制台编码修复等能力保留。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.3/JiuyiAI-Engine-macos-v1.0.3.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.3/JiuyiAI-Engine-macos-v1.0.3.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.4/JiuyiAI-Engine-macos-v1.0.4.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.4/JiuyiAI-Engine-macos-v1.0.4.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.3/JiuyiAI-Engine-windows-v1.0.3.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.3/JiuyiAI-Engine-windows-v1.0.3.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.4/JiuyiAI-Engine-windows-v1.0.4.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.4/JiuyiAI-Engine-windows-v1.0.4.zip"
     }
   }
 }
