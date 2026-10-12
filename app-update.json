@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.0.9",
-  "released_at": "2026-10-12T10:00:00Z",
+  "latest": "1.1.0",
+  "released_at": "2026-10-12T13:00:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.0.9：修复 Windows 主窗口启动时 pywebview 将 PNG 当作 Icon 导致的崩溃（picture 必须是可用作 Icon 的图片）。",
+  "notes": "1.1.0：新手引导；全局设置（主题/通道/字体）；朱雀对照默认折叠；一键推荐配置引导申请并验证 Key；本地辅助开启时显示模型配置；关于我们显示版本号并支持主动检查更新。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.9/JiuyiAI-Engine-macos-v1.0.9.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.9/JiuyiAI-Engine-macos-v1.0.9.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.0/JiuyiAI-Engine-macos-v1.1.0.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.0/JiuyiAI-Engine-macos-v1.1.0.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.9/JiuyiAI-Engine-windows-v1.0.9.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.9/JiuyiAI-Engine-windows-v1.0.9.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.0/JiuyiAI-Engine-windows-v1.1.0.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.0/JiuyiAI-Engine-windows-v1.1.0.zip"
     }
   }
 }
