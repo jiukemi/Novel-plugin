@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.0.5",
-  "released_at": "2026-10-12T04:20:00Z",
+  "latest": "1.0.6",
+  "released_at": "2026-10-12T04:50:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.0.5：启动准备进度窗与 startup.log；打包桌面默认本机监听（避免 Windows 防火墙弹窗像无响应）；此前含 WebView2 引导、GBK/os.uname 修复。",
+  "notes": "1.0.6：修复 Windows 双击无反应（Win32 启动进度窗、禁用 UPX、业务模块延后加载）；启动日志写在 exe 同目录 startup.log。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.5/JiuyiAI-Engine-macos-v1.0.5.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.5/JiuyiAI-Engine-macos-v1.0.5.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.0.6/JiuyiAI-Engine-macos-v1.0.6.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.0.6/JiuyiAI-Engine-macos-v1.0.6.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.5/JiuyiAI-Engine-windows-v1.0.5.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.5/JiuyiAI-Engine-windows-v1.0.5.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.0.6/JiuyiAI-Engine-windows-v1.0.6.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.0.6/JiuyiAI-Engine-windows-v1.0.6.zip"
     }
   }
 }
