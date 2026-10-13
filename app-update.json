@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.1.0",
-  "released_at": "2026-10-12T13:00:00Z",
+  "latest": "1.1.1",
+  "released_at": "2026-10-13T02:20:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.1.0：新手引导；全局设置（主题/通道/字体）；朱雀对照默认折叠；一键推荐配置引导申请并验证 Key；本地辅助开启时显示模型配置；关于我们显示版本号并支持主动检查更新。",
+  "notes": "1.1.1：Windows 启动加固——打包真正 .ico、启动日志写出版本号；若仍卡在旧包（日志无 icon=/(none)）请务必重下本版。含 1.1.0 全部 UX。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.0/JiuyiAI-Engine-macos-v1.1.0.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.0/JiuyiAI-Engine-macos-v1.1.0.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.1/JiuyiAI-Engine-macos-v1.1.1.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.1/JiuyiAI-Engine-macos-v1.1.1.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.0/JiuyiAI-Engine-windows-v1.1.0.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.0/JiuyiAI-Engine-windows-v1.1.0.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.1/JiuyiAI-Engine-windows-v1.1.1.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.1/JiuyiAI-Engine-windows-v1.1.1.zip"
     }
   }
 }
