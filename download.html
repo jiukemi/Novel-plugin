@@ -89,8 +89,11 @@
       </section>
     </div>
     <script>
+      // Gitee /raw 会 302 到 raw.giteeusercontent.com，浏览器常因 CORS 失败；Contents API 带 CORS *
+      const GEE_CONTENTS =
+        "https://gitee.com/api/v5/repos/webhwh/novel-plugin/contents/app-update.json?ref=main";
       const MANIFESTS = [
-        "https://gitee.com/webhwh/novel-plugin/raw/main/app-update.json",
+        GEE_CONTENTS,
         "https://raw.githubusercontent.com/jiukemi/Novel-plugin/main/app-update.json",
       ];
       const GH_API = "https://api.github.com/repos/jiukemi/Novel-plugin/releases?per_page=15";
@@ -106,12 +109,38 @@
         return false;
       }
 
+      function b64DecodeUtf8(b64) {
+        const bin = atob(String(b64 || "").replace(/\n/g, ""));
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return new TextDecoder("utf-8").decode(bytes);
+      }
+
+      function decodeContentsPayload(data) {
+        if (!data || typeof data !== "object") return null;
+        if (data.latest && data.downloads) return data;
+        if (typeof data.content === "string" && data.content) {
+          try {
+            const text =
+              String(data.encoding || "").toLowerCase() === "base64" ||
+              !String(data.content).trim().startsWith("{")
+                ? b64DecodeUtf8(data.content)
+                : data.content;
+            const parsed = JSON.parse(text);
+            if (parsed && parsed.latest && parsed.downloads) return parsed;
+          } catch (_) {}
+        }
+        return null;
+      }
+
       async function fetchJson(url, ms) {
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), ms);
         try {
           const r = await fetch(url, { signal: ctrl.signal, cache: "no-store" });
           if (!r.ok) throw new Error(String(r.status));
+          const ctype = (r.headers.get("content-type") || "").toLowerCase();
+          if (ctype.includes("text/html")) throw new Error("html");
           return await r.json();
         } finally {
           clearTimeout(t);
@@ -149,7 +178,8 @@
         for (const u of MANIFESTS) {
           try {
             const d = await fetchJson(u, 8000);
-            if (d && d.latest && d.downloads) return { data: d, src: u };
+            const decoded = decodeContentsPayload(d) || (d && d.latest && d.downloads ? d : null);
+            if (decoded) return { data: decoded, src: u };
           } catch (_) {}
         }
         return null;
@@ -169,7 +199,7 @@
       }
 
       async function loadFromReleases() {
-        const out = { latest: "", downloads: { macos: {}, windows: {} }, notes: "" };
+        const byVer = {};
         const tasks = [
           fetchJson(GH_API, 9000).then((d) => ({ m: "github", d })).catch(() => null),
           fetchJson(GEE_API, 9000).then((d) => ({ m: "gitee", d })).catch(() => null),
@@ -179,32 +209,37 @@
           if (!hit || !Array.isArray(hit.d)) continue;
           for (const rel of hit.d) {
             const tag = String(rel.tag_name || "");
+            if (!tag.startsWith("app-macos-v") && !tag.startsWith("app-windows-v")) continue;
             const ver = (parseVer(tag) || []).join(".");
             if (!ver) continue;
-            if (!out.latest || verGt(ver, out.latest)) {
-              out.latest = ver;
-              out.notes = String(rel.body || rel.description || "").slice(0, 800);
+            if (!byVer[ver]) {
+              byVer[ver] = {
+                latest: ver,
+                downloads: { macos: {}, windows: {} },
+                notes: String(rel.body || rel.description || "").slice(0, 800),
+              };
             }
+            const row = byVer[ver];
+            const base = hit.m === "gitee"
+              ? "https://gitee.com/webhwh/novel-plugin/releases/download"
+              : "https://github.com/jiukemi/Novel-plugin/releases/download";
             const mac = assetUrl(rel.assets, "macos");
             const win = assetUrl(rel.assets, "windows");
-            if (mac) out.downloads.macos[hit.m] = mac;
-            if (win) out.downloads.windows[hit.m] = win;
-            // conventional fallback by tag
-            if (tag.startsWith("app-macos-v") && !out.downloads.macos[hit.m]) {
-              const base = hit.m === "gitee"
-                ? "https://gitee.com/webhwh/novel-plugin/releases/download"
-                : "https://github.com/jiukemi/Novel-plugin/releases/download";
-              out.downloads.macos[hit.m] = `${base}/${tag}/JiuyiAI-Engine-macos-v${ver}.zip`;
+            if (mac) row.downloads.macos[hit.m] = mac;
+            if (win) row.downloads.windows[hit.m] = win;
+            if (tag.startsWith("app-macos-v") && !row.downloads.macos[hit.m]) {
+              row.downloads.macos[hit.m] = `${base}/${tag}/JiuyiAI-Engine-macos-v${ver}.zip`;
             }
-            if (tag.startsWith("app-windows-v") && !out.downloads.windows[hit.m]) {
-              const base = hit.m === "gitee"
-                ? "https://gitee.com/webhwh/novel-plugin/releases/download"
-                : "https://github.com/jiukemi/Novel-plugin/releases/download";
-              out.downloads.windows[hit.m] = `${base}/${tag}/JiuyiAI-Engine-windows-v${ver}.zip`;
+            if (tag.startsWith("app-windows-v") && !row.downloads.windows[hit.m]) {
+              row.downloads.windows[hit.m] = `${base}/${tag}/JiuyiAI-Engine-windows-Setup-v${ver}.exe`;
             }
           }
         }
-        return out.latest ? out : null;
+        const vers = Object.keys(byVer);
+        if (!vers.length) return null;
+        let latest = vers[0];
+        for (const v of vers) if (verGt(v, latest)) latest = v;
+        return byVer[latest];
       }
 
       async function chooseMirror(github, gitee) {
