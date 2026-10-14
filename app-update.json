@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.1.4",
-  "released_at": "2026-10-13T10:10:00Z",
+  "latest": "1.1.6",
+  "released_at": "2026-10-14T11:20:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.1.4：Windows 改为正式安装向导（Setup.exe，可选安装目录/开始菜单/桌面图标）。应用内更新推送照常；点下载会拿到 Setup。便携 zip 仍提供。",
+  "notes": "1.1.6：插件广场标明增强能力依赖 Code Agent（代码级模型订阅）；仅书源引擎内置、引导/更新弹框与双档推荐等体验修复一并收录。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.4/JiuyiAI-Engine-macos-v1.1.4.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.4/JiuyiAI-Engine-macos-v1.1.4.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.6/JiuyiAI-Engine-macos-v1.1.6.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.6/JiuyiAI-Engine-macos-v1.1.6.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.4/JiuyiAI-Engine-windows-Setup-v1.1.4.exe",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.4/JiuyiAI-Engine-windows-Setup-v1.1.4.exe"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.6/JiuyiAI-Engine-windows-Setup-v1.1.6.exe",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.6/JiuyiAI-Engine-windows-Setup-v1.1.6.exe"
     }
   }
 }
