@@ -1,18 +1,18 @@
 {
   "schema": "jiuyi.app_update.v1",
-  "latest": "1.1.6",
-  "released_at": "2026-10-14T11:20:00Z",
+  "latest": "1.1.7",
+  "released_at": "2026-10-20T00:20:00Z",
   "force_below": "0.0.0",
   "force_versions": [],
-  "notes": "1.1.6：插件广场标明增强能力依赖 Code Agent（代码级模型订阅）；仅书源引擎内置、引导/更新弹框与双档推荐等体验修复一并收录。Windows / macOS 安装包均为 1.1.6。",
+  "notes": "1.1.7：修复 Windows 打包版局域网扫码连不上（默认重新监听 0.0.0.0）；消除打开小说/回首页时闪现黑色终端窗口（Tailscale/nvidia-smi 静默调用）。",
   "downloads": {
     "macos": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.6/JiuyiAI-Engine-macos-v1.1.6.zip",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.6/JiuyiAI-Engine-macos-v1.1.6.zip"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-macos-v1.1.7/JiuyiAI-Engine-macos-v1.1.7.zip",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-macos-v1.1.7/JiuyiAI-Engine-macos-v1.1.7.zip"
     },
     "windows": {
-      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.6/JiuyiAI-Engine-windows-Setup-v1.1.6.exe",
-      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.6/JiuyiAI-Engine-windows-Setup-v1.1.6.exe"
+      "github": "https://github.com/jiukemi/Novel-plugin/releases/download/app-windows-v1.1.7/JiuyiAI-Engine-windows-Setup-v1.1.7.exe",
+      "gitee": "https://gitee.com/webhwh/novel-plugin/releases/download/app-windows-v1.1.7/JiuyiAI-Engine-windows-Setup-v1.1.7.exe"
     }
   }
 }
